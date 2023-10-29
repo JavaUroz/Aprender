@@ -6,18 +6,24 @@ using Aprender.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 //using Aprender.Data;
-builder.Services.AddDbContext<AprenderContext>(options =>
+builder.Services.AddDbContext<AprenderDbContext>(options =>
 //using Aprender.Data;
     options.UseSqlServer(builder.Configuration.GetConnectionString("AprenderContext") ?? throw new InvalidOperationException("Connection string 'AprenderContext' not found.")));
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<AprenderContext>(options =>
+builder.Services.AddDbContext<AprenderDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<Usuario>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<AprenderContext>();
+builder.Services.AddDefaultIdentity<Usuario>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = true;
+})
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<AprenderDbContext>();
+    //.AddDefaultTokenProviders()
+    //.AddDefaultUI();
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
@@ -40,6 +46,9 @@ builder.Services.Configure<IdentityOptions>(options =>
 builder.Services.AddControllersWithViews();
 
 //builder.Services.ConfigureApplicationCookie(opts => opts.LoginPath = "/Areas/Identity/Pages/Account/Login");
+
+// Agrega servicios Razor Pages
+builder.Services.AddRazorPages();
 
 var app = builder.Build();
 

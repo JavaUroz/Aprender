@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Aprender.Models
 {
     public class Comunicacion
     {
+        [Key]
         public int Id { get; set; }
         public string? Asunto { get; set; }
         public string? Mensaje { get; set; }

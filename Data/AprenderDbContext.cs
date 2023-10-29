@@ -4,12 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Aprender.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Aprender.Data
 {
-    public class AprenderContext : DbContext
+    public class AprenderDbContext : IdentityDbContext <Usuario>
     {
-        public AprenderContext (DbContextOptions<AprenderContext> options)
+        public AprenderDbContext (DbContextOptions<AprenderDbContext> options)
             : base(options)
         {
         }

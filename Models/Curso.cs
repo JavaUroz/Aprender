@@ -1,13 +1,18 @@
-﻿using System.Data;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Data;
 
 namespace Aprender.Models
 {
     public class Curso
     {
+        [Key]
         public int Id { get; set; }
+        [Required(ErrorMessage = "Ingrese el nombre del curso.")]
         public string? Nombre { get; set; }
+        [Required(ErrorMessage = "Ingrese el nombre del curso.")]
         public string? Descripcion { get; set; }
         public string? ProfesorId { get; set; }
+        [DataType(DataType.Time)]
         public DateTime? Horario { get; set; }
 
         //Tabla de la que obtiene a usuario.profesor

@@ -1,7 +1,10 @@
-﻿namespace Aprender.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Aprender.Models
 {
     public class Calificacion
     {
+        [Key]
         public int Id { get; set; }
         public int ExamenId { get; set; }
         public string? EstudianteId { get; set; }

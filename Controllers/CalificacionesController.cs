@@ -14,9 +14,9 @@ namespace Aprender.Controllers
     [Authorize]
     public class CalificacionesController : Controller
     {        
-        private readonly AprenderContext _context;
+        private readonly AprenderDbContext _context;
 
-        public CalificacionesController(AprenderContext context)
+        public CalificacionesController(AprenderDbContext context)
         {
             _context = context;
         }

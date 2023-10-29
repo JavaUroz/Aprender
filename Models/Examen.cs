@@ -1,7 +1,10 @@
-﻿namespace Aprender.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Aprender.Models
 {
     public class Examen
     {
+        [Key]
         public int Id { get; set; }
         public string? Nombre { get; set; }
         public DateTime? Fecha { get; set; }

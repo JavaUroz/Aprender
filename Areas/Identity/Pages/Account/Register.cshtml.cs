@@ -10,9 +10,9 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading;
 using System.Threading.Tasks;
-using Aprender.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Aprender.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -69,12 +69,37 @@ namespace Aprender.Areas.Identity.Pages.Account
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
         /// </summary>
-        public class InputModel : Usuario
+        public class InputModel
         {
+            [Required]
+            [Display(Name = "DNI")]
+            public int Dni { get; set; }
+            [Required]
+            [DataType(DataType.Date)]
+            [Display(Name = "Fecha de nacimiento")]
+            public DateTime FechaNacimiento { get; set; }
+            [Required]
+            [Display(Name = "Nombre")]
+            public string Nombre { get; set; }
+            [Required]
+            [Display(Name = "Apellido")]
+            public string Apellido { get; set; }
+            [Required]
+            [Display(Name = "Dirección")]
+            public string Direccion { get; set; }
+            //[Display(Name = "Certificado analítico")]
+            //public byte CertificadoAnalitico { get; set; }
+            //[Display(Name = "Copia de DNI")]
+            //public byte CopiaDni { get; set; }
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
+            /// [Required]
+            [Required]
+            [Phone]
+            [Display(Name = "Teléfono")]
+            public string PhoneNumber { get; set; }
             [Required]
             [EmailAddress]
             [Display(Name = "Email")]
@@ -85,7 +110,7 @@ namespace Aprender.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(100, ErrorMessage = "El {0} debe tener al menos {2} y como máximo {1} caracteres.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
             public string Password { get; set; }
@@ -95,8 +120,8 @@ namespace Aprender.Areas.Identity.Pages.Account
             ///     directly from your code. This API may change or be removed in future releases.
             /// </summary>
             [DataType(DataType.Password)]
-            [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Display(Name = "Confirme password")]
+            [Compare("Password", ErrorMessage = "La contraseña y la contraseña de confirmación no coinciden.")]
             public string ConfirmPassword { get; set; }
         }
 
@@ -114,6 +139,16 @@ namespace Aprender.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
+
+                //Datos requeridos de usuario
+                user.Dni = Input.Dni;
+                user.Nombre = Input.Nombre;
+                user.Apellido = Input.Apellido;
+                user.PhoneNumber = Input.PhoneNumber;
+                user.FechaNacimiento = Input.FechaNacimiento;
+                user.Direccion = Input.Direccion;
+                //user.CertificadoAnalitico = Input.CertificadoAnalitico;
+                //user.CopiaDni = Input.CopiaDni;
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);

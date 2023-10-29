@@ -14,9 +14,9 @@ namespace Aprender.Controllers
     [Authorize]
     public class ComunicacionesController : Controller
     {
-        private readonly AprenderContext _context;
+        private readonly AprenderDbContext _context;
 
-        public ComunicacionesController(AprenderContext context)
+        public ComunicacionesController(AprenderDbContext context)
         {
             _context = context;
         }
