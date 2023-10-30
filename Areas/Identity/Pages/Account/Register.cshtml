@@ -16,7 +16,7 @@
 <body>
     <div class="d-flex justify-content-center align-self-center w-400">        
         <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h2 class="m-2">Formulario de registración.</h2>
+            <h2 class="m-3 mt-5">Formulario de registración</h2>
             <div class="form-floating">
                 <input asp-for="Input.Dni" class="form-control" autocomplete="dni" aria-required="true" />
                 <label asp-for="Input.Dni"></label>
@@ -73,7 +73,7 @@
                 <label asp-for="Input.ConfirmPassword"></label>
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div class="m-1">
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Registrarse</button>
+            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary mt-2">Registrarse</button>
         </form>
         
     </div>
