@@ -7,9 +7,13 @@
 
 <h1>Exámenes</h1>
 
-<p>
-    <a asp-action="Create">Cargar</a>
-</p>
+@if (User.IsInRole("Admin") || User.IsInRole("Secretario") || User.IsInRole("Profesor"))
+{
+   <p>
+       <a asp-action="Create">Cargar</a>
+   </p> 
+}
+
 <table class="table">
     <thead>
         <tr>
@@ -22,7 +26,11 @@
             <th>
                 @Html.DisplayNameFor(model => model.Curso)
             </th>
-            <th></th>
+            @if (User.IsInRole("Admin") || User.IsInRole("Secretario") || User.IsInRole("Profesor"))
+            {
+                <th></th>
+            }
+            
         </tr>
     </thead>
     <tbody>
@@ -37,11 +45,15 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Curso.Id)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
+            @if (User.IsInRole("Admin") || User.IsInRole("Secretario") || User.IsInRole("Profesor"))
+            {
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Detalle</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Borrar</a>
+                </td>
+            }
+            
         </tr>
 }
     </tbody>

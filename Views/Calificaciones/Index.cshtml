@@ -7,7 +7,7 @@
 
 <h1>Calificaciones</h1>
 
-@if (User.IsInRole("Estudiante")!)
+@if (User.IsInRole("Admin") || User.IsInRole("Secretario") || User.IsInRole("Profesor"))
 {
    <p>
        <a asp-action="Create">Cargar</a>
@@ -29,10 +29,10 @@
             <th>
                 @Html.DisplayNameFor(model => model.Examen)
             </th>
-            @if (User.IsInRole("Estudiante")!)
+            @if (User.IsInRole("Admin") || User.IsInRole("Secretario") || User.IsInRole("Profesor"))
             {
                 <th></th>
-            }            
+            }
         </tr>
     </thead>
     <tbody>
@@ -50,14 +50,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Examen.Id)
             </td>
-            @if (User.IsInRole("Estudiante")!)
-            {
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Detalle</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Borrar</a>
-                </td>
-            }
+                @if (User.IsInRole("Admin") || User.IsInRole("Secretario") || User.IsInRole("Profesor"))
+                {
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Detalle</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Borrar</a>
+                    </td>
+                }
         </tr>
 }
     </tbody>
