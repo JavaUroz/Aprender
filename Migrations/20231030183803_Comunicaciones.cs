@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Aprender.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class Comunicaciones : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -165,8 +165,8 @@ namespace Aprender.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Asunto = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Mensaje = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Asunto = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Mensaje = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Fecha = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UsuarioId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     Rol = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -189,7 +189,7 @@ namespace Aprender.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProfesorId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    ProfesorId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Horario = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
@@ -200,6 +200,7 @@ namespace Aprender.Migrations
                         column: x => x.ProfesorId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id");
+                        /*onDelete: ReferentialAction.Cascade);*/
                 });
 
             migrationBuilder.CreateTable(
@@ -235,8 +236,8 @@ namespace Aprender.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Titulo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Contenido = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Titulo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Contenido = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CursoId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -256,7 +257,7 @@ namespace Aprender.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    EstudianteId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    EstudianteId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     cursoId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -266,7 +267,8 @@ namespace Aprender.Migrations
                         name: "FK_Progreso_AspNetUsers_EstudianteId",
                         column: x => x.EstudianteId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Progreso_Curso_cursoId",
                         column: x => x.cursoId,
@@ -282,7 +284,7 @@ namespace Aprender.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ExamenId = table.Column<int>(type: "int", nullable: false),
-                    EstudianteId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    EstudianteId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Nota = table.Column<float>(type: "real", nullable: false),
                     Fecha = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
@@ -293,7 +295,8 @@ namespace Aprender.Migrations
                         name: "FK_Calificacion_AspNetUsers_EstudianteId",
                         column: x => x.EstudianteId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Calificacion_Examen_ExamenId",
                         column: x => x.ExamenId,

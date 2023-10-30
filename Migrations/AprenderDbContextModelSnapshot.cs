@@ -31,6 +31,7 @@ namespace Aprender.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("EstudianteId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("ExamenId")
@@ -60,12 +61,14 @@ namespace Aprender.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Asunto")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("Fecha")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Mensaje")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Rol")
@@ -101,6 +104,7 @@ namespace Aprender.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProfesorId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
@@ -148,12 +152,14 @@ namespace Aprender.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Contenido")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CursoId")
                         .HasColumnType("int");
 
                     b.Property<string>("Titulo")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -172,6 +178,7 @@ namespace Aprender.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("EstudianteId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("cursoId")
@@ -407,7 +414,9 @@ namespace Aprender.Migrations
                 {
                     b.HasOne("Aprender.Models.Usuario", "Estudiante")
                         .WithMany("Calificaciones")
-                        .HasForeignKey("EstudianteId");
+                        .HasForeignKey("EstudianteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Aprender.Models.Examen", "Examen")
                         .WithMany("Calificaciones")
@@ -433,7 +442,9 @@ namespace Aprender.Migrations
                 {
                     b.HasOne("Aprender.Models.Usuario", "Profesor")
                         .WithMany("Cursos")
-                        .HasForeignKey("ProfesorId");
+                        .HasForeignKey("ProfesorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Profesor");
                 });
@@ -468,7 +479,9 @@ namespace Aprender.Migrations
                 {
                     b.HasOne("Aprender.Models.Usuario", "Estudiante")
                         .WithMany("Progresos")
-                        .HasForeignKey("EstudianteId");
+                        .HasForeignKey("EstudianteId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Aprender.Models.Curso", "Curso")
                         .WithMany("Progresos")

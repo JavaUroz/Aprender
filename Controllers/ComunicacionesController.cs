@@ -61,7 +61,7 @@ namespace Aprender.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Asunto,Mensaje,Fecha,UsuarioId,Rol")] Comunicacion comunicacion)
+        public async Task<IActionResult> Create([Bind("Asunto,Mensaje,Fecha,UsuarioId,Rol")] Comunicacion comunicacion)
         {
             if (ModelState.IsValid)
             {
@@ -96,7 +96,7 @@ namespace Aprender.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Asunto,Mensaje,Fecha,UsuarioId,Rol")] Comunicacion comunicacion)
+        public async Task<IActionResult> Edit(int id, [Bind("Asunto,Mensaje,Fecha,UsuarioId,Rol")] Comunicacion comunicacion)
         {
             if (id != comunicacion.Id)
             {
