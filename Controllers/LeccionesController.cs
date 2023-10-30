@@ -120,7 +120,7 @@ namespace Aprender.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CursoId"] = new SelectList(_context.Curso, "Id", "Id", leccion.CursoId);
+            ViewData["CursoId"] = new SelectList(_context.Curso.Include(c => c.Cursos), "Id", "Id", leccion.CursoId);
             return View(leccion);
         }
 

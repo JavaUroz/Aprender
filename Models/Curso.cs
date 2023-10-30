@@ -9,8 +9,11 @@ namespace Aprender.Models
         public int Id { get; set; }
         [Required(ErrorMessage = "Ingrese el nombre del curso.")]
         public string? Nombre { get; set; }
-        [Required(ErrorMessage = "Ingrese el nombre del curso.")]
+        [Required(ErrorMessage = "Ingrese descripción.")]
+        [Display(Name = "Descripción")]
         public string? Descripcion { get; set; }
+        [Required(ErrorMessage = "Ingrese el profesor.")]
+        [Display(Name = "Profesor")]
         public string? ProfesorId { get; set; }
         [DataType(DataType.Time)]
         public DateTime? Horario { get; set; }

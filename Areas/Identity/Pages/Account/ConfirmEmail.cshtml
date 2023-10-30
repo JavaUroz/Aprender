@@ -2,7 +2,23 @@
 @model ConfirmEmailModel
 @{
     ViewData["Title"] = "Confirm email";
+    Layout = null;
 }
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Aprender</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Aprender.styles.css" asp-append-version="true" />
+</head>
 
-<h1>@ViewData["Title"]</h1>
-<partial name="_StatusMessage" model="Model.StatusMessage" />
+<body>
+    <div class="m-5">
+        <h1>@ViewData["Title"]</h1>
+        <partial name="_StatusMessage" model="Model.StatusMessage" />
+        <p>
+            <a asp-area="" asp-controller="Home" asp-action="Index">Login</a>
+        </p>
+    </div>
+</body>

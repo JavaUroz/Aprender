@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "Index";
 }
-<h1>User Roles</h1>
+<h1>Roles de usuario</h1>
 <table class="table table-striped">
     <thead>
         <tr>
@@ -10,7 +10,10 @@
             <th>Apellido</th>
             <th>Email</th>
             <th>Roles</th>
-            <th>Action</th>
+            @if (User.IsInRole("Admin"))
+            {
+               <th>Action</th> 
+            }            
         </tr>
     </thead>
     <tbody>
@@ -20,10 +23,13 @@
             <td>@user.Nombre</td>
             <td>@user.Apellido</td>
             <td>@user.Email</td>
-            <td>@string.Join(" , ", user.Roles.ToList())</td>
-            <td>
-                <a class="btn btn-primary" asp-controller="UserRolesManager" asp-action="Manage" asp-route-userId="@user.UserId">Manage Roles</a>
-            </td>
+            <td>@string.Join(" , ", user.Roles.ToList())</td>            
+            @if (User.IsInRole("Admin"))
+            {
+                <td>
+                    <a class="btn btn-primary" asp-controller="UserRolesManager" asp-action="Manage" asp-route-userId="@user.UserId">Administrar roles</a>
+                </td>
+            }
         </tr>
     }
     </tbody>

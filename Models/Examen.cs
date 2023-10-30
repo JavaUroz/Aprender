@@ -6,8 +6,10 @@ namespace Aprender.Models
     {
         [Key]
         public int Id { get; set; }
+        [Display(Name = "Descripción")]
         public string? Nombre { get; set; }
         public DateTime? Fecha { get; set; }
+        [Display(Name = "Curso")]
         public int CursoId { get; set; }
         public virtual Curso? Curso { get; set; } = null!;
 

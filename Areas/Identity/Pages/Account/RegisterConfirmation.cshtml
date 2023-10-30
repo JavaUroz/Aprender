@@ -2,15 +2,30 @@
 @model RegisterConfirmationModel
 @{
     ViewData["Title"] = "Confirmación de registro";
+    Layout = null;
 }
 
-<h1>@ViewData["Title"]</h1>
-@{
-    if (@Model.DisplayConfirmAccountLink)
-    {
-<p>
-    <a id="confirm-link" href="@Model.EmailConfirmationUrl">Click Aquí para confirmar tu registro.</a>
-</p>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Aprender</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Aprender.styles.css" asp-append-version="true" />
+</head>
+
+<body>
+    
+    @{
+        if (@Model.DisplayConfirmAccountLink)
+        {
+            <div class="m-5">
+                <h1>@ViewData["Title"]</h1>
+                <p>
+                    <a id="confirm-link" href="@Model.EmailConfirmationUrl">Click Aquí para confirmar tu registro.</a>
+                </p>
+            </div>            
+        }
     }
-}
+</body>
 

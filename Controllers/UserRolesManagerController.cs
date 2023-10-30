@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WebApplicationIdentity.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin, Secretario")]
     public class UserRolesManagerController : Controller
     {
         private readonly UserManager<Usuario> userManager;
@@ -68,6 +68,7 @@ namespace WebApplicationIdentity.Controllers
             }
             return View(model);
         }
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> Manage(List<ManagerUserRoles> model, string userId)
         {

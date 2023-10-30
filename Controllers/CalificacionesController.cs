@@ -47,18 +47,35 @@ namespace Aprender.Controllers
 
             return View(calificacion);
         }
-
+        [Authorize(Roles = "Admin, Profesor")]
         // GET: Calificaciones/Create
         public IActionResult Create()
         {
-            ViewData["EstudianteId"] = new SelectList(_context.Set<Usuario>(), "Id", "Id");
-            ViewData["ExamenId"] = new SelectList(_context.Set<Examen>(), "Id", "Id");
+            ViewData["EstudianteId"] = new SelectList(
+                _context.Set<Usuario>()
+                .Select(usuario => new
+                {
+                    usuario.Id,
+                    Usuario = $"({usuario.Dni}) {usuario.Apellido}, {usuario.Nombre}"
+                }),
+                "Id", "Usuario");
+            ViewData["ExamenId"] = new SelectList(
+                _context.Set<Examen>()
+                .Include(e => e.Curso)
+                .Select(examen => new
+                {
+                    examen.Id,
+                    Examen = $"{examen.Curso.Descripcion} - {examen.Calificaciones} - {examen.Fecha}"
+                }),
+                "Id", "Examen");
+
             return View();
         }
 
         // POST: Calificaciones/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin, Profesor")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,ExamenId,EstudianteId,Nota,Fecha")] Calificacion calificacion)
@@ -73,7 +90,7 @@ namespace Aprender.Controllers
             ViewData["ExamenId"] = new SelectList(_context.Set<Examen>(), "Id", "Id", calificacion.ExamenId);
             return View(calificacion);
         }
-
+        [Authorize(Roles = "Admin, Profesor")]
         // GET: Calificaciones/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -91,7 +108,7 @@ namespace Aprender.Controllers
             ViewData["ExamenId"] = new SelectList(_context.Set<Examen>(), "Id", "Id", calificacion.ExamenId);
             return View(calificacion);
         }
-
+        [Authorize(Roles = "Admin, Profesor")]
         // POST: Calificaciones/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -128,7 +145,7 @@ namespace Aprender.Controllers
             ViewData["ExamenId"] = new SelectList(_context.Set<Examen>(), "Id", "Id", calificacion.ExamenId);
             return View(calificacion);
         }
-
+        [Authorize(Roles = "Admin, Profesor")]
         // GET: Calificaciones/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -148,7 +165,7 @@ namespace Aprender.Controllers
 
             return View(calificacion);
         }
-
+        [Authorize(Roles = "Admin, Profesor")]
         // POST: Calificaciones/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

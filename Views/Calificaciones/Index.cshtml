@@ -5,11 +5,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Calificaciones</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+@if (User.IsInRole("Estudiante")!)
+{
+   <p>
+       <a asp-action="Create">Cargar calificación</a>
+   </p> 
+}
+
 <table class="table">
     <thead>
         <tr>
@@ -25,7 +29,10 @@
             <th>
                 @Html.DisplayNameFor(model => model.Examen)
             </th>
-            <th></th>
+            @if (User.IsInRole("Estudiante")!)
+            {
+                <th></th>
+            }            
         </tr>
     </thead>
     <tbody>
@@ -43,11 +50,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Examen.Id)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
+            @if (User.IsInRole("Estudiante")!)
+            {
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Detalle</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Borrar</a>
+                </td>
+            }
         </tr>
 }
     </tbody>
