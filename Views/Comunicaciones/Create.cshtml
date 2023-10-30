@@ -1,18 +1,27 @@
 ﻿@model Aprender.Models.Comunicacion
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Nuevo mensaje";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<h1>Redactar</h1>
 
-<h4>Comunicacion</h4>
+<h4>Comunicado</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @* <div class="form-group">
+                <label asp-for="Fecha" class="control-label"></label>
+                <input asp-for="Fecha" class="form-control" disabled/>
+                <span asp-validation-for="Fecha" class="text-danger"></span>
+            </div> *@
+            <div class="form-group">
+                <label asp-for="UsuarioId" class="control-label"></label>
+                <select asp-for="UsuarioId" class="form-control" asp-items="ViewBag.UsuarioId"></select>
+            </div>
             <div class="form-group">
                 <label asp-for="Asunto" class="control-label"></label>
                 <input asp-for="Asunto" class="form-control" />
@@ -20,32 +29,25 @@
             </div>
             <div class="form-group">
                 <label asp-for="Mensaje" class="control-label"></label>
-                <input asp-for="Mensaje" class="form-control" />
+                <textarea asp-for="Mensaje" class="form-control" rows="5"></textarea>
                 <span asp-validation-for="Mensaje" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Fecha" class="control-label"></label>
-                <input asp-for="Fecha" class="form-control" />
-                <span asp-validation-for="Fecha" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UsuarioId" class="control-label"></label>
-                <select asp-for="UsuarioId" class ="form-control" asp-items="ViewBag.UsuarioId"></select>
-            </div>
-            <div class="form-group">
+            
+            
+           @*  <div class="form-group">
                 <label asp-for="Rol" class="control-label"></label>
                 <input asp-for="Rol" class="form-control" />
                 <span asp-validation-for="Rol" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            </div> *@
+            <div class="form-group mt-2">
+                <input type="submit" value="Enviar" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Cancelar</a>
 </div>
 
 @section Scripts {

@@ -21,9 +21,9 @@ builder.Services.AddDefaultIdentity<Usuario>(options =>
     options.SignIn.RequireConfirmedAccount = true;
 })
     .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<AprenderDbContext>();
-    //.AddDefaultTokenProviders()
-    //.AddDefaultUI();
+    .AddEntityFrameworkStores<AprenderDbContext>()
+    .AddDefaultTokenProviders()
+    .AddDefaultUI();
 
 builder.Services.Configure<IdentityOptions>(options =>
 {

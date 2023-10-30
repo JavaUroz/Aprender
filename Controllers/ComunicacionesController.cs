@@ -44,13 +44,15 @@ namespace Aprender.Controllers
                 return NotFound();
             }
 
+            comunicacion.Fecha = DateTime.Now;
+
             return View(comunicacion);
         }
 
         // GET: Comunicaciones/Create
         public IActionResult Create()
         {
-            ViewData["UsuarioId"] = new SelectList(_context.Set<Usuario>(), "Id", "Id");
+            ViewData["UsuarioId"] = new SelectList(_context.Set<Usuario>(), "Id", "Email");
             return View();
         }
 
@@ -63,11 +65,12 @@ namespace Aprender.Controllers
         {
             if (ModelState.IsValid)
             {
+                comunicacion.Fecha = DateTime.Now;
                 _context.Add(comunicacion);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UsuarioId"] = new SelectList(_context.Set<Usuario>(), "Id", "Id", comunicacion.UsuarioId);
+            ViewData["UsuarioId"] = new SelectList(_context.Set<Usuario>(), "Id", "Email", comunicacion.UsuarioId);                        
             return View(comunicacion);
         }
 

@@ -68,7 +68,7 @@ namespace WebApplicationIdentity.Controllers
             }
             return View(model);
         }
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Secretario")]
         [HttpPost]
         public async Task<IActionResult> Manage(List<ManagerUserRoles> model, string userId)
         {

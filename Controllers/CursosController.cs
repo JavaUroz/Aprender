@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Aprender.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin, Profesor, Secretario")]
     public class CursosController : Controller
     {
         private readonly AprenderDbContext _context;
