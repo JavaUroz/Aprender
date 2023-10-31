@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Progresos</h1>
+<h1>Inscripción a cursos</h1>
 
 @if (User.IsInRole("Admin") || User.IsInRole("Secretario") || User.IsInRole("Profesor"))
 {
@@ -31,10 +31,12 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Estudiante.Id)
+                    (@Html.DisplayFor(modelItem => item.Estudiante.Dni))
+                @Html.DisplayFor(modelItem => item.Estudiante.Apellido), 
+                    @Html.DisplayFor(modelItem => item.Estudiante.Nombre)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Curso.Id)
+                @Html.DisplayFor(modelItem => item.Curso.Nombre)
             </td>
             <td>
                 @if (User.IsInRole("Admin") || User.IsInRole("Secretario") || User.IsInRole("Profesor"))

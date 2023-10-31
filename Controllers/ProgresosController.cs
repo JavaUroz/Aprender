@@ -8,17 +8,20 @@ using Microsoft.EntityFrameworkCore;
 using Aprender.Data;
 using Aprender.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace Aprender.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Profesor, Admin, Secretario")]
     public class ProgresosController : Controller
     {
         private readonly AprenderDbContext _context;
+        private readonly UserManager<Usuario> _userManager;
 
-        public ProgresosController(AprenderDbContext context)
+        public ProgresosController(AprenderDbContext context, UserManager<Usuario> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Progresos
@@ -47,19 +50,30 @@ namespace Aprender.Controllers
 
             return View(progreso);
         }
-        [Authorize(Roles = "Profesor, Admin, Secretario")]
+        
         // GET: Progresos/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["cursoId"] = new SelectList(_context.Curso, "Id", "Id");
-            ViewData["EstudianteId"] = new SelectList(_context.Set<Usuario>(), "Id", "Id");
+            ViewData["cursoId"] = new SelectList(_context.Curso, "Id", "Nombre");
+
+            var usersWithRole = await _userManager.GetUsersInRoleAsync("Estudiante");
+
+            var estudiantesSelectList = new SelectList(usersWithRole
+                .Select(usuario => new
+                {
+                    usuario.Id,
+                    Estudiante = $"{usuario.Apellido}, {usuario.Nombre}"
+                }), "Id", "Estudiante");
+
+            ViewData["EstudianteId"] = estudiantesSelectList;
+
             return View();
         }
 
         // POST: Progresos/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize(Roles = "Profesor, Admin, Secretario")]
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,EstudianteId,cursoId")] Progreso progreso)
@@ -70,11 +84,21 @@ namespace Aprender.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["cursoId"] = new SelectList(_context.Curso, "Id", "Id", progreso.cursoId);
-            ViewData["EstudianteId"] = new SelectList(_context.Set<Usuario>(), "Id", "Id", progreso.EstudianteId);
+            ViewData["cursoId"] = new SelectList(_context.Curso, "Id", "Nombre", progreso.cursoId);
+
+            var usersWithRole = await _userManager.GetUsersInRoleAsync("Estudiante");
+
+            var estudiantesSelectList = new SelectList(usersWithRole
+                .Select(usuario => new
+                {
+                    usuario.Id,
+                    Estudiante = $"{usuario.Apellido}, {usuario.Nombre}"
+                }), "Id", "Estudiante", progreso.EstudianteId);
+
+            ViewData["EstudianteId"] = estudiantesSelectList;
             return View(progreso);
         }
-        [Authorize(Roles = "Profesor, Admin, Secretario")]
+        
         // GET: Progresos/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -88,15 +112,24 @@ namespace Aprender.Controllers
             {
                 return NotFound();
             }
-            ViewData["cursoId"] = new SelectList(_context.Curso, "Id", "Id", progreso.cursoId);
-            ViewData["EstudianteId"] = new SelectList(_context.Set<Usuario>(), "Id", "Id", progreso.EstudianteId);
+            ViewData["cursoId"] = new SelectList(_context.Curso, "Id", "Nombre", progreso.cursoId);
+
+            var usersWithRole = await _userManager.GetUsersInRoleAsync("Estudiante");
+
+            var estudiantesSelectList = new SelectList(usersWithRole
+                .Select(usuario => new
+                {
+                    usuario.Id,
+                    Estudiante = $"{usuario.Apellido}, {usuario.Nombre}"
+                }), "Id", "Estudiante", progreso.EstudianteId);
+            ViewData["EstudianteId"] = estudiantesSelectList;
             return View(progreso);
         }
 
         // POST: Progresos/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize(Roles = "Profesor, Admin, Secretario")]
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,EstudianteId,cursoId")] Progreso progreso)
@@ -126,11 +159,19 @@ namespace Aprender.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["cursoId"] = new SelectList(_context.Curso, "Id", "Id", progreso.cursoId);
-            ViewData["EstudianteId"] = new SelectList(_context.Set<Usuario>(), "Id", "Id", progreso.EstudianteId);
+            ViewData["cursoId"] = new SelectList(_context.Curso, "Id", "Nombre", progreso.cursoId);
+            var usersWithRole = await _userManager.GetUsersInRoleAsync("Estudiante");
+
+            var estudiantesSelectList = new SelectList(usersWithRole
+                .Select(usuario => new
+                {
+                    usuario.Id,
+                    Estudiante = $"{usuario.Apellido}, {usuario.Nombre}"
+                }), "Id", "Estudiante", progreso.EstudianteId);
+            ViewData["EstudianteId"] = estudiantesSelectList;
             return View(progreso);
         }
-        [Authorize(Roles = "Profesor, Admin, Secretario")]
+        
         // GET: Progresos/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -150,7 +191,7 @@ namespace Aprender.Controllers
 
             return View(progreso);
         }
-        [Authorize(Roles = "Profesor, Admin, Secretario")]
+        
         // POST: Progresos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
