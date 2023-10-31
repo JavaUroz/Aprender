@@ -50,7 +50,7 @@ namespace Aprender.Controllers
         // GET: Lecciones/Create
         public IActionResult Create()
         {
-            ViewData["CursoId"] = new SelectList(_context.Curso, "Id", "Id");
+            ViewData["CursoId"] = new SelectList(_context.Curso, "Id", "Nombre");
             return View();
         }
 
@@ -67,7 +67,7 @@ namespace Aprender.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CursoId"] = new SelectList(_context.Curso, "Id", "Id", leccion.CursoId);
+            ViewData["CursoId"] = new SelectList(_context.Curso, "Id", "Nombre", leccion.CursoId);
             return View(leccion);
         }
 
@@ -84,7 +84,7 @@ namespace Aprender.Controllers
             {
                 return NotFound();
             }
-            ViewData["CursoId"] = new SelectList(_context.Curso, "Id", "Id", leccion.CursoId);
+            ViewData["CursoId"] = new SelectList(_context.Curso, "Id", "Nombre", leccion.CursoId);
             return View(leccion);
         }
 
@@ -120,7 +120,7 @@ namespace Aprender.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CursoId"] = new SelectList(_context.Curso.Include(c => c.Cursos), "Id", "Id", leccion.CursoId);
+            ViewData["CursoId"] = new SelectList(_context.Curso.Include(c => c.Cursos), "Id", "Nombre", leccion.CursoId);
             return View(leccion);
         }
 

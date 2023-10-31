@@ -14,6 +14,7 @@ namespace Aprender.Models
         [Required]
         [Display(Name = "Curso")]
         public int CursoId { get; set; }
+        [Display(Name = "Curso")]
         public virtual Curso? Curso { get; set; } = null!;
     }
 }

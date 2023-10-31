@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Aprender.Data;
 using Aprender.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace Aprender.Controllers
 {
@@ -15,16 +16,18 @@ namespace Aprender.Controllers
     public class CalificacionesController : Controller
     {        
         private readonly AprenderDbContext _context;
+        private readonly UserManager<Usuario> _userManager;
 
-        public CalificacionesController(AprenderDbContext context)
+        public CalificacionesController(AprenderDbContext context, UserManager<Usuario> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Calificaciones
         public async Task<IActionResult> Index()
         {
-            var aprenderContext = _context.Calificacion.Include(c => c.Estudiante).Include(c => c.Examen);
+            var aprenderContext = _context.Calificacion.Include(c => c.Estudiante).Include(c => c.Examen).Include(c => c.Examen.Curso);
             return View(await aprenderContext.ToListAsync());
         }
 
@@ -47,18 +50,20 @@ namespace Aprender.Controllers
 
             return View(calificacion);
         }
-        [Authorize(Roles = "Admin, Profesor")]
+        [Authorize(Roles = "Admin, Profesor, Secretario")]
         // GET: Calificaciones/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
-            ViewData["EstudianteId"] = new SelectList(
-                _context.Set<Usuario>()
+            var usersWithRole = await _userManager.GetUsersInRoleAsync("Estudiante");
+
+            var estudiantesSelectList = new SelectList(usersWithRole
                 .Select(usuario => new
                 {
                     usuario.Id,
-                    Usuario = $"({usuario.Dni}) {usuario.Apellido}, {usuario.Nombre}"
-                }),
-                "Id", "Usuario");
+                    Estudiante = $"{usuario.Apellido}, {usuario.Nombre}"
+                }), "Id", "Estudiante");
+
+            ViewData["EstudianteId"] = estudiantesSelectList;
             ViewData["ExamenId"] = new SelectList(
                 _context.Set<Examen>()
                 .Include(e => e.Curso)
@@ -68,7 +73,6 @@ namespace Aprender.Controllers
                     Examen = $"{examen.Curso.Descripcion} - {examen.Calificaciones} - {examen.Fecha}"
                 }),
                 "Id", "Examen");
-
             return View();
         }
 
@@ -86,8 +90,17 @@ namespace Aprender.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EstudianteId"] = new SelectList(_context.Set<Usuario>(), "Id", "Id", calificacion.EstudianteId);
-            ViewData["ExamenId"] = new SelectList(_context.Set<Examen>(), "Id", "Id", calificacion.ExamenId);
+            var usersWithRole = await _userManager.GetUsersInRoleAsync("Estudiante");
+
+            var estudiantesSelectList = new SelectList(usersWithRole
+                .Select(usuario => new
+                {
+                    usuario.Id,
+                    Estudiante = $"{usuario.Apellido}, {usuario.Nombre}"
+                }), "Id", "Estudiante");
+
+            ViewData["EstudianteId"] = estudiantesSelectList;
+            ViewData["ExamenId"] = new SelectList(_context.Set<Examen>(), "Id", "Nombre", calificacion.ExamenId);
             return View(calificacion);
         }
         [Authorize(Roles = "Admin, Profesor")]
@@ -104,8 +117,17 @@ namespace Aprender.Controllers
             {
                 return NotFound();
             }
-            ViewData["EstudianteId"] = new SelectList(_context.Set<Usuario>(), "Id", "Id", calificacion.EstudianteId);
-            ViewData["ExamenId"] = new SelectList(_context.Set<Examen>(), "Id", "Id", calificacion.ExamenId);
+            var usersWithRole = await _userManager.GetUsersInRoleAsync("Estudiante");
+
+            var estudiantesSelectList = new SelectList(usersWithRole
+                .Select(usuario => new
+                {
+                    usuario.Id,
+                    Estudiante = $"{usuario.Apellido}, {usuario.Nombre}"
+                }), "Id", "Estudiante");
+
+            ViewData["EstudianteId"] = estudiantesSelectList;
+            ViewData["ExamenId"] = new SelectList(_context.Set<Examen>(), "Id", "Nombre", calificacion.ExamenId);
             return View(calificacion);
         }
         [Authorize(Roles = "Admin, Profesor")]
@@ -141,8 +163,17 @@ namespace Aprender.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EstudianteId"] = new SelectList(_context.Set<Usuario>(), "Id", "Id", calificacion.EstudianteId);
-            ViewData["ExamenId"] = new SelectList(_context.Set<Examen>(), "Id", "Id", calificacion.ExamenId);
+            var usersWithRole = await _userManager.GetUsersInRoleAsync("Estudiante");
+
+            var estudiantesSelectList = new SelectList(usersWithRole
+                .Select(usuario => new
+                {
+                    usuario.Id,
+                    Estudiante = $"{usuario.Apellido}, {usuario.Nombre}"
+                }), "Id", "Estudiante");
+
+            ViewData["EstudianteId"] = estudiantesSelectList;
+            ViewData["ExamenId"] = new SelectList(_context.Set<Examen>(), "Id", "Nombre", calificacion.ExamenId);
             return View(calificacion);
         }
         [Authorize(Roles = "Admin, Profesor")]

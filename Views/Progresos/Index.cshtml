@@ -7,9 +7,12 @@
 
 <h1>Progresos</h1>
 
-<p>
-    <a asp-action="Create">Cargar</a>
-</p>
+@if (User.IsInRole("Admin") || User.IsInRole("Secretario") || User.IsInRole("Profesor"))
+{
+    <p>
+        <a asp-action="Create">Cargar</a>
+    </p>
+}
 <table class="table">
     <thead>
         <tr>

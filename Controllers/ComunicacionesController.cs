@@ -87,7 +87,7 @@ namespace Aprender.Controllers
             {
                 return NotFound();
             }
-            ViewData["UsuarioId"] = new SelectList(_context.Set<Usuario>(), "Id", "Id", comunicacion.UsuarioId);
+            ViewData["UsuarioId"] = new SelectList(_context.Set<Usuario>(), "Id", "Email", comunicacion.UsuarioId);
             return View(comunicacion);
         }
 
@@ -123,7 +123,7 @@ namespace Aprender.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["UsuarioId"] = new SelectList(_context.Set<Usuario>(), "Id", "Id", comunicacion.UsuarioId);
+            ViewData["UsuarioId"] = new SelectList(_context.Set<Usuario>(), "Id", "Email", comunicacion.UsuarioId);
             return View(comunicacion);
         }
 

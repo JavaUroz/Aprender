@@ -8,6 +8,7 @@ namespace Aprender.Models
         public int Id { get; set; }
         [Display(Name = "Descripción")]
         public string? Nombre { get; set; }
+        [DataType(DataType.Date)]
         public DateTime? Fecha { get; set; }
         [Display(Name = "Curso")]
         public int CursoId { get; set; }

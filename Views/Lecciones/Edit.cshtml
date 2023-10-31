@@ -1,13 +1,13 @@
 ﻿@model Aprender.Models.Leccion
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar lección";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
+<h1>Editar</h1>
 
-<h4>Leccion</h4>
+<h4>Lección</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -21,7 +21,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Contenido" class="control-label"></label>
-                <input asp-for="Contenido" class="form-control" />
+                <textarea asp-for="Contenido" class="form-control" rows="5"></textarea>
                 <span asp-validation-for="Contenido" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -30,14 +30,14 @@
                 <span asp-validation-for="CursoId" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Guardar" class="btn btn-primary mt-1" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Volver</a>
 </div>
 
 @section Scripts {
