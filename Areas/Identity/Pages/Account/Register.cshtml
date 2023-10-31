@@ -46,17 +46,7 @@
                 <input asp-for="Input.Direccion" class="form-control" autocomplete="direccion" aria-required="true" />
                 <label asp-for="Input.Direccion"></label>
                 <span asp-validation-for="Input.Direccion" class="text-danger"></span>
-            </div>
-            @*<div class="form-floating">
-                <input type="file" asp-for="Input.CertificadoAnalitico" class="form-control" autocomplete="analitico" aria-required="true" multiple/>
-                <label asp-for="Input.CertificadoAnalitico"></label>
-                <span asp-validation-for="Input.CertificadoAnalitico" class="text-danger"></span>
-            </div>
-            <div class="form-floating">
-                <input type="file" asp-for="Input.CopiaDni" class="form-control" autocomplete="copiadni" aria-required="true" multiple/>
-                <label asp-for="Input.CopiaDni"></label>
-                <span asp-validation-for="Input.CopiaDni" class="text-danger"></span>
-            </div>*@
+            </div>            
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-floating">
                 <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />

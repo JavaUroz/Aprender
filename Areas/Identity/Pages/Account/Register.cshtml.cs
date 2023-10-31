@@ -87,10 +87,7 @@ namespace Aprender.Areas.Identity.Pages.Account
             [Required]
             [Display(Name = "Dirección")]
             public string Direccion { get; set; }
-            //[Display(Name = "Certificado analítico")]
-            //public byte CertificadoAnalitico { get; set; }
-            //[Display(Name = "Copia de DNI")]
-            //public byte CopiaDni { get; set; }
+
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -147,9 +144,7 @@ namespace Aprender.Areas.Identity.Pages.Account
                 user.PhoneNumber = Input.PhoneNumber;
                 user.FechaNacimiento = Input.FechaNacimiento;
                 user.Direccion = Input.Direccion;
-                //user.CertificadoAnalitico = Input.CertificadoAnalitico;
-                //user.CopiaDni = Input.CopiaDni;
-
+                
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
