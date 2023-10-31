@@ -6,6 +6,11 @@
 @if (SignInManager.IsSignedIn(User))
 {
     <li class="nav-item">
+        <a class="nav-link text-dark mx-4" asp-area="" asp-controller="Comunicaciones" asp-action="Index" title="Notificaciones">
+            <img width="25px" src="~/images/notificacion.png" />
+        </a>
+    </li>
+    <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="Role" asp-action="Index" title="Roles"><img width="25px" src="~/images/modulos/roles.png" /></a>
     </li>
     <li class="nav-item">

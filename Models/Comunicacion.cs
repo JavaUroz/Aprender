@@ -17,6 +17,7 @@ namespace Aprender.Models
         public string? Rol { get; set; } // Pudiendo ser Emisor o Receptor y luego el controlador deberá generar 2 registros por comunicacion
 
         //Tabla de la que obtiene a usuario emisor y receptor
+        [Display(Name = "Destinatario")]
         public virtual Usuario? Usuario { get; set; } = null!;
     }
 }
