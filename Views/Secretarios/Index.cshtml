@@ -7,30 +7,20 @@
 
 <h1>Secretarios</h1>
 
-<table class="table">
+<table id="table" class="table table-hover table-borderless table-striped">
     <thead>
         <tr>
-            <th>
-                DNI
-            </th>
+            <th>DNI</th>
             <th>
                 @Html.DisplayNameFor(model => model.Nombre)
             </th>
-            <th>
-                Teléfono
-            </th>
+            <th>Teléfono</th>
             <th>
                 @Html.DisplayNameFor(model => model.Email)
             </th>
-            <th>
-                Fecha de nacimiento
-            </th>
-            <th>
-                Dirección
-            </th>
-            <th>
-                Email confirmado
-            </th>
+            <th>Fecha de nacimiento</th>
+            <th>Dirección</th>
+            <th>Email confirmado</th>
             @* @if (User.IsInRole("Admin") || User.IsInRole("Secretario") || User.IsInRole("Profesor"))
             {
             <th></th>

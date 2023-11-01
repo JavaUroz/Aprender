@@ -1,26 +1,32 @@
 ﻿@model List<Microsoft.AspNetCore.Identity.IdentityRole>
+
 @{
-ViewData["Title"] = "ROLES";
+    ViewData["Title"] = "ROLES";
 }
 <h1>Roles</h1>
-<a asp-action="Create" class="btn btn-secondary">Crear un Rol</a>
-<table class="table table-sm table-bordered table-bordered">
-<tr><th>ID</th><th>Descrpción</th><th></th><th></th></tr>
+
+<a asp-action="Create">Crear un Rol</a>
+
+<table id="table" class="table table-hover table-borderless table-striped">
+    <tr>
+        <th>ID</th>
+        <th>Descrpción</th>
+        <th></th>
+        <th></th>
+    </tr>
 @foreach (var role in Model)
 {
-<tr>
-<td>@role.Id</td>
-<td>@role.Name</td>
-
-<td><a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@role.Id">Editar</a></td>
-
-<td>
-<form asp-action="Delete" asp-route-id="@role.Id" method="post">
-<button type="submit" class="btn btn-sm btn-danger">
-Borrar
-</button>
-</form>
-</td>
-</tr>
+    <tr>
+        <td>@role.Id</td>
+        <td>@role.Name</td>
+        <td>
+            <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@role.Id">Editar</a>
+        </td>
+        <td>
+            <form asp-action="Delete" asp-route-id="@role.Id" method="post">
+                <button type="submit" class="btn btn-sm btn-danger">Borrar</button>
+            </form>
+        </td>
+    </tr>
 }
 </table>
