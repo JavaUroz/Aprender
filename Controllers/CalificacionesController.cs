@@ -70,7 +70,7 @@ namespace Aprender.Controllers
                 .Select(examen => new
                 {
                     examen.Id,
-                    Examen = $"{examen.Curso.Descripcion} - {examen.Calificaciones} - {examen.Fecha}"
+                    Examen = $"{examen.Nombre} - {examen.Curso.Nombre} - {examen.Fecha}"
                 }),
                 "Id", "Examen");
             return View();
@@ -100,7 +100,15 @@ namespace Aprender.Controllers
                 }), "Id", "Estudiante");
 
             ViewData["EstudianteId"] = estudiantesSelectList;
-            ViewData["ExamenId"] = new SelectList(_context.Set<Examen>(), "Id", "Nombre", calificacion.ExamenId);
+            ViewData["ExamenId"] = new SelectList(
+                _context.Set<Examen>()
+                .Include(e => e.Curso)
+                .Select(examen => new
+                {
+                    examen.Id,
+                    Examen = $"{examen.Nombre} - {examen.Curso.Nombre} - {examen.Fecha}"
+                }),
+                "Id", "Examen", calificacion.ExamenId);
             return View(calificacion);
         }
         [Authorize(Roles = "Admin, Profesor")]
@@ -127,7 +135,15 @@ namespace Aprender.Controllers
                 }), "Id", "Estudiante");
 
             ViewData["EstudianteId"] = estudiantesSelectList;
-            ViewData["ExamenId"] = new SelectList(_context.Set<Examen>(), "Id", "Nombre", calificacion.ExamenId);
+            ViewData["ExamenId"] = new SelectList(
+                _context.Set<Examen>()
+                .Include(e => e.Curso)
+                .Select(examen => new
+                {
+                    examen.Id,
+                    Examen = $"{examen.Nombre} - {examen.Curso.Nombre} - {examen.Fecha}"
+                }),
+                "Id", "Examen", calificacion.ExamenId);
             return View(calificacion);
         }
         [Authorize(Roles = "Admin, Profesor")]
@@ -173,7 +189,15 @@ namespace Aprender.Controllers
                 }), "Id", "Estudiante");
 
             ViewData["EstudianteId"] = estudiantesSelectList;
-            ViewData["ExamenId"] = new SelectList(_context.Set<Examen>(), "Id", "Nombre", calificacion.ExamenId);
+            ViewData["ExamenId"] = new SelectList(
+                _context.Set<Examen>()
+                .Include(e => e.Curso)
+                .Select(examen => new
+                {
+                    examen.Id,
+                    Examen = $"{examen.Nombre} - {examen.Curso.Nombre} - {examen.Fecha}"
+                }),
+                "Id", "Examen", calificacion.ExamenId);
             return View(calificacion);
         }
         [Authorize(Roles = "Admin, Profesor")]
