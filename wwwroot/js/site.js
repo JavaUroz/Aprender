@@ -2,7 +2,7 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 $(document).ready(function () {
-    $('#tablas').DataTable({
+    $('#table').DataTable({
         "language": {
             "url": '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json' // Opcional: Traducción al español
         },
