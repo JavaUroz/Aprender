@@ -1,8 +1,74 @@
-﻿@{
+﻿@model DashboardViewModel
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Cursos</h2>
+            <div class="container">
+                <canvas id="myChart1" width="400" height="400"></canvas>
+            </div>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+                var ctx1 = document.getElementById('myChart1').getContext('2d');
+                var data1 = {
+                    labels: ['Cursos', 'Lecciones', 'Calificaciones'],
+                    datasets: [{
+                        data: [@Model.NumCursos, @Model.NumLecciones, @Model.NumCalificaciones],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 205, 86, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(255, 159, 64)',
+                            'rgb(255, 205, 86)'
+                        ],
+                        borderWidth: 1
+                    }]
+                };
+                var myChart1 = new Chart(ctx1, {
+                    type: 'bar',
+                    data: data1,
+                });
+            </script>
+        </div>
+        <div class="col-md-6">
+            <h2>Calificaciones</h2>
+            <div class="container">
+                <canvas id="myChart2" width="400" height="400"></canvas>
+            </div>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script>
+                var ctx2 = document.getElementById('myChart2').getContext('2d');
+                var data2 = {
+                    labels: ['Total calificaciones', 'Aprobados', 'Reprobados'],
+                    datasets: [{
+                        data: [@Model.NumCalificaciones, @Model.NumAprobados, @Model.NumReprobados],
+                        backgroundColor: [
+                            'rgba(255, 55, 232, 0.2)',
+                            'rgba(255, 779, 45, 0.2)',
+                            'rgba(255, 36, 98, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgb(255, 55, 232)',
+                            'rgb(255, 779, 45)',
+                            'rgb(255, 36, 98)'
+                        ],
+                        borderWidth: 1
+                    }]
+                };
+                var myChart2 = new Chart(ctx2, {
+                    type: 'polarArea',
+                    data: data2,
+                });
+            </script>
+        </div>
+    </div>
 </div>
+
+
